@@ -1,0 +1,38 @@
+# Vulny View dedicated game server — systemd unit.
+#
+# Runs the exported Linux server binary headless as a --server (no player, clients
+# drop in). Auto-restarts on crash and starts on boot.
+#
+# Install (Amazon Linux 2023 / Ubuntu, x86_64):
+#   1. Copy the exported binary to the instance, e.g. /home/ubuntu/vulny-view/vulny-view.x86_64
+#      (Ubuntu default user is 'ubuntu' — change User=, Environment=HOME and the
+#       ExecStart path below to match).
+#   2. chmod +x /home/ubuntu/vulny-view/vulny-view.x86_64
+#   3. sudo cp vulny-view-server.service /etc/systemd/system/
+#   4. sudo systemctl daemon-reload
+#   5. sudo systemctl enable --now vulny-view-server
+#   6. Check it:   systemctl status vulny-view-server
+#                  journalctl -u vulny-view-server -f      # live logs
+#
+# Remember: open inbound UDP 8080 in the EC2 Security Group (and the OS firewall
+# if one is enabled). ENet is UDP.
+
+[Unit]
+Description=Vulny View dedicated game server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+# HOME must be set so Godot can resolve user:// (settings, logs).
+Environment=HOME=/home/ubuntu
+WorkingDirectory=/home/ubuntu/vulny-view
+ExecStart=/home/ubuntu/vulny-view/vulny-view.x86_64 --headless -- --server
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

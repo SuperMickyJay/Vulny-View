@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://b86bq2bmwo4rq"]
+
+[ext_resource type="Script" uid="uid://drx7vl06vumg" path="res://gameplay/world/World.gd" id="1_4jq5r"]
+
+[node name="World" type="Node2D" unique_id=830291148]
+z_as_relative = false
+y_sort_enabled = true
+script = ExtResource("1_4jq5r")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=341776756]
+_spawnable_scenes = PackedStringArray("uid://dqtbq3884ll42", "uid://bjl6dadvdlhxy", "uid://cwodltoklvo34", "uid://bu84q80h615cy", "uid://ca7yc07vfg6hp")
+spawn_path = NodePath("../Players")
+spawn_limit = 5
+
+[node name="CurrentLevel" type="Node2D" parent="." unique_id=937051410]
+y_sort_enabled = true
+
+[node name="Players" type="Node2D" parent="." unique_id=1234575030]
+y_sort_enabled = true

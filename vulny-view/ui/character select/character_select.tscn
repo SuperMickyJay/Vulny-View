@@ -1,0 +1,299 @@
+[gd_scene format=3 uid="uid://dbgqptysv6rcv"]
+
+[ext_resource type="Script" uid="uid://rpijjvw10je7" path="res://ui/character select/CharacterSelect.gd" id="1_mtw4w"]
+[ext_resource type="Script" uid="uid://h6qti2wrrp0a" path="res://ui/character select/CharacterButton.gd" id="1_s6tq5"]
+[ext_resource type="FontFile" uid="uid://c4xaj648tr38x" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_37ptq"]
+[ext_resource type="SpriteFrames" path="res://assets/ui/menu_background_frames.tres" id="2_a6ob8"]
+[ext_resource type="Script" path="res://ui/menus/CoverBackground.gd" id="15_coverbg"]
+[ext_resource type="Texture2D" uid="uid://bosljsxo24sol" path="res://assets/ui/menu_foreground.png" id="16_fg"]
+[ext_resource type="SpriteFrames" path="res://assets/ui/plane_frames.tres" id="17_planefr"]
+[ext_resource type="Script" path="res://ui/menus/BannerPlane.gd" id="18_plane"]
+[ext_resource type="Texture2D" uid="uid://dovt6eyaxnwsw" path="res://assets/characters/MimiSprite.png" id="3_5rk7m"]
+[ext_resource type="FontFile" uid="uid://baj5ox8kojcib" path="res://assets/fonts/PixelOperator8.ttf" id="4_5rk7m"]
+[ext_resource type="Texture2D" uid="uid://cie1kfabrou2b" path="res://assets/characters/SisiSprite.png" id="5_mtw4w"]
+[ext_resource type="Texture2D" uid="uid://bw0g2lhpn4v4c" path="res://assets/characters/RiriSprite.png" id="9_wwmm0"]
+[ext_resource type="Texture2D" uid="uid://7iugqtm3t7sd" path="res://assets/characters/PrannuSprite.png" id="10_gbf37"]
+[ext_resource type="Texture2D" uid="uid://s806matenl65" path="res://assets/characters/RaraSprite.png" id="11_pw6t5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1gxnb"]
+bg_color = Color(0.06666667, 0.06666667, 0.06666667, 0.6)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4q26x"]
+bg_color = Color(0.06666667, 0.06666667, 0.06666667, 0.6)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i0ucv"]
+bg_color = Color(0.06666667, 0.06666667, 0.06666667, 0.6)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3uta7"]
+bg_color = Color(0.06666667, 0.06666667, 0.06666667, 0.6)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gjmvl"]
+bg_color = Color(0.06666667, 0.06666667, 0.06666667, 0.6)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[node name="CharacterSelect" type="Control" unique_id=561730231]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mtw4w")
+
+[node name="Background" type="AnimatedSprite2D" parent="." unique_id=488686250]
+texture_filter = 1
+position = Vector2(160, 90)
+sprite_frames = ExtResource("2_a6ob8")
+script = ExtResource("15_coverbg")
+autoplay = "default"
+
+[node name="BannerPlane" type="AnimatedSprite2D" parent="." unique_id=1093384517]
+texture_filter = 1
+position = Vector2(411, 15)
+sprite_frames = ExtResource("17_planefr")
+script = ExtResource("18_plane")
+autoplay = "default"
+
+[node name="Foreground" type="TextureRect" parent="." unique_id=1730592214]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("16_fg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=946950308]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1677886765]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="RichTextLabel" parent="CenterContainer/VBoxContainer" unique_id=1458916904]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("4_5rk7m")
+theme_override_fonts/bold_font = ExtResource("2_37ptq")
+text = "Choose Game Option"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=1942298375]
+layout_mode = 2
+alignment = 1
+
+[node name="MimiContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/HBoxContainer" unique_id=1633973658]
+layout_mode = 2
+alignment = 1
+
+[node name="MimiButton" type="TextureButton" parent="CenterContainer/VBoxContainer/HBoxContainer/MimiContainer" unique_id=461664568]
+custom_minimum_size = Vector2(28, 42)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("3_5rk7m")
+stretch_mode = 0
+script = ExtResource("1_s6tq5")
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer/MimiContainer" unique_id=2072972737]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_5rk7m")
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_1gxnb")
+text = "Mimi"
+horizontal_alignment = 1
+
+[node name="SisiContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/HBoxContainer" unique_id=1623345467]
+layout_mode = 2
+alignment = 1
+
+[node name="SisiButton" type="TextureButton" parent="CenterContainer/VBoxContainer/HBoxContainer/SisiContainer" unique_id=1897793637]
+custom_minimum_size = Vector2(28, 42)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("5_mtw4w")
+stretch_mode = 0
+script = ExtResource("1_s6tq5")
+character_id = 1
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer/SisiContainer" unique_id=64875398]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_5rk7m")
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_4q26x")
+text = "Sisi"
+horizontal_alignment = 1
+
+[node name="RiriContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/HBoxContainer" unique_id=197709828]
+layout_mode = 2
+alignment = 1
+
+[node name="RiriButton" type="TextureButton" parent="CenterContainer/VBoxContainer/HBoxContainer/RiriContainer" unique_id=1095240537]
+custom_minimum_size = Vector2(28, 42)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("9_wwmm0")
+stretch_mode = 0
+script = ExtResource("1_s6tq5")
+character_id = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer/RiriContainer" unique_id=1936626873]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_5rk7m")
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_i0ucv")
+text = "Riri"
+horizontal_alignment = 1
+
+[node name="PrannuContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/HBoxContainer" unique_id=264637166]
+layout_mode = 2
+
+[node name="PrannuButton" type="TextureButton" parent="CenterContainer/VBoxContainer/HBoxContainer/PrannuContainer" unique_id=242496425]
+custom_minimum_size = Vector2(28, 42)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("10_gbf37")
+stretch_mode = 0
+script = ExtResource("1_s6tq5")
+character_id = 3
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer/PrannuContainer" unique_id=586306444]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_5rk7m")
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_3uta7")
+text = "Prannu"
+horizontal_alignment = 1
+
+[node name="RaraContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/HBoxContainer" unique_id=1830422744]
+layout_mode = 2
+
+[node name="RaraButton" type="TextureButton" parent="CenterContainer/VBoxContainer/HBoxContainer/RaraContainer" unique_id=53703181]
+custom_minimum_size = Vector2(28, 42)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("11_pw6t5")
+stretch_mode = 0
+script = ExtResource("1_s6tq5")
+character_id = 4
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer/RaraContainer" unique_id=1899974082]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_5rk7m")
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_gjmvl")
+text = "Rara"
+horizontal_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=1240987313]
+layout_mode = 2
+alignment = 1
+
+[node name="SoloButton" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer2" unique_id=1709856725]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_5rk7m")
+theme_override_font_sizes/font_size = 9
+text = "Solo Game"
+
+[node name="HostButton" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer2" unique_id=2006162851]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_5rk7m")
+theme_override_font_sizes/font_size = 9
+text = "Host Game"
+
+[node name="OnlineButton" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer2" unique_id=1380891633]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_5rk7m")
+theme_override_font_sizes/font_size = 9
+text = "Play Online"
+
+[node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer2" unique_id=776790991]
+visible = false
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_5rk7m")
+theme_override_font_sizes/font_size = 9
+text = "Start Game"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=1718961796]
+layout_mode = 2
+alignment = 1
+
+[node name="StatusLabel" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer" unique_id=274605336]
+visible = false
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_5rk7m")
+theme_override_font_sizes/font_size = 9
+text = "Waiting for host..."
+horizontal_alignment = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=695697921]
+layout_mode = 2
+alignment = 1
+
+[node name="IpField" type="LineEdit" parent="CenterContainer/VBoxContainer/HBoxContainer3" unique_id=500740129]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_5rk7m")
+theme_override_font_sizes/font_size = 9
+placeholder_text = "Host IP"
+
+[node name="JoinButton" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer3" unique_id=805849720]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_5rk7m")
+theme_override_font_sizes/font_size = 9
+text = "Join Game"
+
+[node name="Button" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1467831176]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("4_5rk7m")
+theme_override_font_sizes/font_size = 9
+text = "Back"

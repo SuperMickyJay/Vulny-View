@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bgv5s17lo1ccd"]
+
+[ext_resource type="AudioStream" uid="uid://dgi7ch4p15qpl" path="res://assets/music and sounds/pixeltown-color-parade-main-version-41716-01-53.mp3" id="1_xnye0"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" unique_id=863628981]
+process_mode = 3
+stream = ExtResource("1_xnye0")
+autoplay = true
+parameters/looping = true

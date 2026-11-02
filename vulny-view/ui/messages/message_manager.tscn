@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://dnif6djidc6sm"]
+
+[ext_resource type="Texture2D" uid="uid://dl7wxes5cifhu" path="res://assets/message box/message_box-export.png" id="1_k51dc"]
+[ext_resource type="Script" uid="uid://bvrb3q6ih7ava" path="res://ui/messages/MessageManager.gd" id="1_nbahy"]
+[ext_resource type="FontFile" uid="uid://baj5ox8kojcib" path="res://assets/fonts/PixelOperator8.ttf" id="2_xs4ie"]
+
+[node name="MessageManager" type="CanvasLayer" unique_id=1472883311 node_paths=PackedStringArray("box", "label")]
+script = ExtResource("1_nbahy")
+box = NodePath("Control/NinePatchRect")
+label = NodePath("Control/NinePatchRect/RichTextLabel")
+
+[node name="Control" type="Control" parent="." unique_id=1656627053]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Control" unique_id=539983483]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1625
+anchor_top = 0.64444447
+anchor_right = 0.85
+anchor_bottom = 0.87777776
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_k51dc")
+patch_margin_left = 8
+patch_margin_top = 10
+patch_margin_right = 8
+patch_margin_bottom = 10
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/NinePatchRect" unique_id=1163667766]
+layout_mode = 0
+anchor_left = 0.027272727
+anchor_top = 0.16666667
+anchor_right = 0.9727273
+anchor_bottom = 0.8333333
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_fonts/normal_font = ExtResource("2_xs4ie")
+theme_override_font_sizes/normal_font_size = 10
+text = "Placeholder"
+metadata/_edit_use_anchors_ = true

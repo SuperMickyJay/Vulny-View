@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://bjl6dadvdlhxy"]
+
+[ext_resource type="Script" uid="uid://dp8ighiu45rck" path="res://gameplay/entities/player/Player.gd" id="1_5d8hm"]
+[ext_resource type="Script" uid="uid://rwcuugx3clqg" path="res://gameplay/entities/player/PlayerInput.gd" id="2_rvwes"]
+[ext_resource type="Script" uid="uid://dgqn8j7cu4xek" path="res://gameplay/entities/CharacterMovement.gd" id="3_f8aw3"]
+[ext_resource type="SpriteFrames" uid="uid://dk8empgxom7m1" path="res://assets/characters/sprite frames/sisi.tres" id="4_5d8hm"]
+[ext_resource type="Script" uid="uid://pstt1fhme4wo" path="res://gameplay/entities/CharacterAnimation.gd" id="5_vvdoa"]
+[ext_resource type="Script" uid="uid://c1cu2km8ox1y" path="res://gameplay/utilities/StateMachine.gd" id="6_m57r5"]
+[ext_resource type="Script" uid="uid://dftutt0vwpve7" path="res://gameplay/entities/states/PlayerRoamState.gd" id="7_1s5nj"]
+[ext_resource type="Script" uid="uid://cdcxcjgj22e2k" path="res://gameplay/entities/states/PlayerMessageState.gd" id="8_r0kcf"]
+[ext_resource type="PackedScene" uid="uid://d4rugwv0b442" path="res://ui/emotes/emote_container.tscn" id="9_emote"]
+[ext_resource type="PackedScene" path="res://ui/chat/chat_bubble.tscn" id="20_chat"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1xqlb"]
+properties/0/path = NodePath("Movement:sync_position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("Movement:sync_walking")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Movement:sync_facing")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(16, 16)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_input"]
+properties/0/path = NodePath(".:wish_direction")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Sisi" type="CharacterBody2D" unique_id=1462120778 node_paths=PackedStringArray("state_machine")]
+z_index = 5
+script = ExtResource("1_5d8hm")
+state_machine = NodePath("StateMachine")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1597420249]
+replication_config = SubResource("SceneReplicationConfig_1xqlb")
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=381267247]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_1")
+
+[node name="Camera" type="Camera2D" parent="." unique_id=1453449097]
+position = Vector2(8, 8)
+position_smoothing_speed = 8.0
+
+[node name="Input" type="Node" parent="." unique_id=282470048]
+script = ExtResource("2_rvwes")
+
+[node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="Input" unique_id=1668856918]
+replication_config = SubResource("SceneReplicationConfig_input")
+
+[node name="Movement" type="Node" parent="." unique_id=865286252 node_paths=PackedStringArray("character", "character_input")]
+script = ExtResource("3_f8aw3")
+character = NodePath("..")
+character_input = NodePath("../Input")
+simulate_only_on_authority = true
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1632577655 node_paths=PackedStringArray("character_input", "character_movement")]
+position = Vector2(8, 1)
+scale = Vector2(0.9, 0.9)
+sprite_frames = ExtResource("4_5d8hm")
+animation = &"idle_down"
+script = ExtResource("5_vvdoa")
+character_input = NodePath("../Input")
+character_movement = NodePath("../Movement")
+
+[node name="StateMachine" type="Node" parent="." unique_id=1160834831 node_paths=PackedStringArray("customer", "current_state")]
+script = ExtResource("6_m57r5")
+customer = NodePath("..")
+current_state = NodePath("Roam")
+
+[node name="Roam" type="Node" parent="StateMachine" unique_id=540992393 node_paths=PackedStringArray("player_input", "character_movement", "emote_container", "state_owner", "state_machine")]
+script = ExtResource("7_1s5nj")
+player_input = NodePath("../../Input")
+character_movement = NodePath("../../Movement")
+emote_container = NodePath("../../EmoteAnchor/EmoteContainer")
+state_owner = NodePath("../..")
+state_machine = NodePath("..")
+
+[node name="Message" type="Node" parent="StateMachine" unique_id=1936534298 node_paths=PackedStringArray("state_owner", "state_machine")]
+script = ExtResource("8_r0kcf")
+state_owner = NodePath("../..")
+state_machine = NodePath("..")
+
+[node name="EmoteAnchor" type="Marker2D" parent="." unique_id=1413672621]
+z_index = 20
+position = Vector2(8, -10)
+
+[node name="EmoteContainer" parent="EmoteAnchor" unique_id=870134847 instance=ExtResource("9_emote")]
+visible = false
+offset_left = -10.0
+offset_top = -16.0
+offset_right = -10.0
+offset_bottom = -16.0
+
+[node name="ChatBubble" parent="EmoteAnchor" unique_id=1220458732 instance=ExtResource("20_chat")]

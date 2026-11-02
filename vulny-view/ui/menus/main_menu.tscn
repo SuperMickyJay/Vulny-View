@@ -1,0 +1,96 @@
+[gd_scene format=3 uid="uid://itva5u58vx56"]
+
+[ext_resource type="Script" uid="uid://6ol1hwsld8ko" path="res://ui/menus/MainMenu.gd" id="1_5ssi0"]
+[ext_resource type="FontFile" uid="uid://c4xaj648tr38x" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_1njj5"]
+[ext_resource type="FontFile" uid="uid://baj5ox8kojcib" path="res://assets/fonts/PixelOperator8.ttf" id="3_h223f"]
+[ext_resource type="Texture2D" uid="uid://bosljsxo24sol" path="res://assets/ui/menu_foreground.png" id="3_l3r6a"]
+[ext_resource type="SpriteFrames" path="res://assets/ui/menu_background_frames.tres" id="4_menubg"]
+[ext_resource type="Script" path="res://ui/menus/CoverBackground.gd" id="6_coverbg"]
+[ext_resource type="SpriteFrames" path="res://assets/ui/plane_frames.tres" id="5_h223f"]
+[ext_resource type="Script" path="res://ui/menus/BannerPlane.gd" id="7_plane"]
+
+[node name="MainMenu" type="Control" unique_id=940216035]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+script = ExtResource("1_5ssi0")
+
+[node name="Background" type="AnimatedSprite2D" parent="." unique_id=890939752]
+texture_filter = 1
+position = Vector2(160, 90)
+sprite_frames = ExtResource("4_menubg")
+script = ExtResource("6_coverbg")
+autoplay = "default"
+
+[node name="Foreground" type="TextureRect" parent="." unique_id=482838561]
+z_index = 1
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_l3r6a")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=576755021]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=828362739]
+layout_mode = 2
+
+[node name="Title" type="RichTextLabel" parent="CenterContainer/VBoxContainer" unique_id=1992714178]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_1njj5")
+theme_override_font_sizes/normal_font_size = 16
+text = "Vulny View"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=548164017]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/HBoxContainer" unique_id=1880703706]
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1212159876]
+layout_mode = 2
+focus_neighbor_top = NodePath("../QuitButton")
+theme_override_fonts/font = ExtResource("3_h223f")
+theme_override_font_sizes/font_size = 16
+text = "Play"
+
+[node name="OptionsButton" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=2130631703]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_h223f")
+theme_override_font_sizes/font_size = 16
+text = "Options"
+
+[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1473564094]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../PlayButton")
+theme_override_fonts/font = ExtResource("3_h223f")
+theme_override_font_sizes/font_size = 16
+text = "Quit"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=504732097]
+position = Vector2(411, 15)
+sprite_frames = ExtResource("5_h223f")
+script = ExtResource("7_plane")
+autoplay = "default"
+frame_progress = 0.10365666

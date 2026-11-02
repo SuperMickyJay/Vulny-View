@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dgi7ch4p15qpl"
+path="res://.godot/imported/pixeltown-color-parade-main-version-41716-01-53.mp3-9e856ee19a68289494f60f62aef3b08e.mp3str"
+
+[deps]
+
+source_file="res://assets/music and sounds/pixeltown-color-parade-main-version-41716-01-53.mp3"
+dest_files=["res://.godot/imported/pixeltown-color-parade-main-version-41716-01-53.mp3-9e856ee19a68289494f60f62aef3b08e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

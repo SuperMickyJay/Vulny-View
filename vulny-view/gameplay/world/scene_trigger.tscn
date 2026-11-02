@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bhkwuvhitmag6"]
+
+[ext_resource type="Script" uid="uid://b6m0hg86g6gdf" path="res://gameplay/world/SceneTrigger.gd" id="1_3yfn3"]
+[ext_resource type="AudioStream" uid="uid://bvr05d3idg7p7" path="res://assets/music and sounds/door_sound.wav" id="2_3k4cd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rlj7o"]
+size = Vector2(16.777779, 16.777779)
+
+[node name="SceneTrigger" type="Area2D" unique_id=1182595046]
+script = ExtResource("1_3yfn3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=342080140]
+position = Vector2(8.450001, 8.450001)
+scale = Vector2(0.75, 0.75)
+shape = SubResource("RectangleShape2D_rlj7o")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2097974282]
+stream = ExtResource("2_3k4cd")

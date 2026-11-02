@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://d4rugwv0b442"]
+
+[ext_resource type="Texture2D" uid="uid://dmqay8b6vs2xy" path="res://assets/emotes/emote_container.png" id="1_2du5k"]
+[ext_resource type="Script" uid="uid://3lv2tnm4xrcl" path="res://ui/emotes/EmoteContainer.gd" id="1_ga3a7"]
+[ext_resource type="Texture2D" uid="uid://bndmxg677q4e2" path="res://assets/emotes/sad.png" id="3_ga3a7"]
+
+[node name="EmoteContainer" type="Control" unique_id=870134847]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ga3a7")
+
+[node name="Container" type="Sprite2D" parent="." unique_id=68034821]
+position = Vector2(10, 8)
+texture = ExtResource("1_2du5k")
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Container" unique_id=1503142494]
+texture = ExtResource("3_ga3a7")
+
+[node name="Timer" type="Timer" parent="." unique_id=2120864884]
+one_shot = true

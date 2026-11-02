@@ -1,0 +1,20 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Exported builds - produced by Godot's export presets, copied to devices / the EC2
+# server by hand (scp), never committed.
+*.apk
+*.aab
+*.x86_64
+*.pck
+
+# Real online server address - copy config/server.example.cfg to create it.
+/config/server.cfg
+
+# Godot's Linux export writes a launcher script beside the binary.
+/vulny-view.sh
+
+# IDE settings
+.idea/
+.vscode/

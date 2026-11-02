@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://brohqvtyu5cea"]
+
+[ext_resource type="Script" uid="uid://b2kgbovfp7tge" path="res://ui/menus/PauseMenu.gd" id="1_w225i"]
+[ext_resource type="FontFile" uid="uid://baj5ox8kojcib" path="res://assets/fonts/PixelOperator8.ttf" id="2_51icm"]
+
+[node name="PauseMenu" type="Control" unique_id=294681583]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w225i")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1339485402]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -92.0
+offset_top = -42.0
+offset_right = 92.0
+offset_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1097202489]
+layout_mode = 2
+
+[node name="ResumeButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=696923539]
+layout_mode = 2
+focus_neighbor_top = NodePath("../QuitButton")
+theme_override_fonts/font = ExtResource("2_51icm")
+theme_override_font_sizes/font_size = 16
+text = "Resume"
+
+[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=631182505]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../ResumeButton")
+theme_override_fonts/font = ExtResource("2_51icm")
+theme_override_font_sizes/font_size = 16
+text = "Quit"

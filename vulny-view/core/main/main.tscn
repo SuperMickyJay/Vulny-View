@@ -1,0 +1,133 @@
+[gd_scene format=3 uid="uid://5xcreoby3y2"]
+
+[ext_resource type="Script" uid="uid://d3lerc1k0vrtc" path="res://core/main/Main.gd" id="1_81xgm"]
+[ext_resource type="Script" uid="uid://bxi6jnf34d8wi" path="res://core/scene_router/SceneRouter.gd" id="2_4dl4c"]
+[ext_resource type="PackedScene" uid="uid://qgsqdxaik5wk" path="res://core/scene_router/transition_layer.tscn" id="2_xwlw8"]
+[ext_resource type="Script" uid="uid://bjar6ll8mi7l0" path="res://core/main/Session.gd" id="4_lkm43"]
+[ext_resource type="Script" uid="uid://cknnocdaxkith" path="res://core/main/UIRoot.gd" id="5_v0ilk"]
+[ext_resource type="PackedScene" uid="uid://itva5u58vx56" path="res://ui/menus/main_menu.tscn" id="6_4dl4c"]
+[ext_resource type="PackedScene" uid="uid://cwv0jdhk7n6b4" path="res://ui/menus/options_menu.tscn" id="7_lkm43"]
+[ext_resource type="PackedScene" uid="uid://brohqvtyu5cea" path="res://ui/menus/pause_menu.tscn" id="8_r831r"]
+[ext_resource type="PackedScene" uid="uid://bw17t2stesgll" path="res://ui/controls/controls.tscn" id="10_v0ilk"]
+[ext_resource type="PackedScene" uid="uid://dnif6djidc6sm" path="res://ui/messages/message_manager.tscn" id="11_v0ilk"]
+[ext_resource type="Texture2D" uid="uid://dl7wxes5cifhu" path="res://assets/message box/message_box-export.png" id="12_lkm43"]
+[ext_resource type="Script" uid="uid://coxe1r3wjyt0k" path="res://ui/menus/PopupBoxLayer.gd" id="12_r831r"]
+[ext_resource type="FontFile" uid="uid://baj5ox8kojcib" path="res://assets/fonts/PixelOperator8.ttf" id="13_r831r"]
+[ext_resource type="PackedScene" uid="uid://dbgqptysv6rcv" path="res://ui/character select/character_select.tscn" id="14_r831r"]
+[ext_resource type="PackedScene" path="res://ui/chat/chat_input.tscn" id="15_chat"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k3kj3"]
+bg_color = Color(0.34407574, 0.34407577, 0.3440756, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 5
+
+[node name="Main" type="Control" unique_id=1524342999]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_81xgm")
+
+[node name="SceneRouter" type="Node" parent="." unique_id=354833266]
+script = ExtResource("2_4dl4c")
+
+[node name="TransitionLayer" parent="SceneRouter" unique_id=807756840 instance=ExtResource("2_xwlw8")]
+
+[node name="Session" type="Node" parent="." unique_id=1976233789 node_paths=PackedStringArray("scene_router")]
+script = ExtResource("4_lkm43")
+scene_router = NodePath("../SceneRouter")
+
+[node name="WorldContainer" type="Node" parent="Session" unique_id=1967874898]
+
+[node name="ModeContainer" type="Node" parent="Session" unique_id=509330656]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1880487533]
+script = ExtResource("5_v0ilk")
+
+[node name="MenuLayer" type="CanvasLayer" parent="UI" unique_id=1569187838]
+
+[node name="MainMenu" parent="UI/MenuLayer" unique_id=940216035 instance=ExtResource("6_4dl4c")]
+visible = false
+
+[node name="OptionsMenu" parent="UI/MenuLayer" unique_id=1347816606 instance=ExtResource("7_lkm43")]
+visible = false
+
+[node name="PauseMenu" parent="UI/MenuLayer" unique_id=294681583 instance=ExtResource("8_r831r")]
+visible = false
+
+[node name="MessageLayer" parent="UI" unique_id=1472883311 instance=ExtResource("11_v0ilk")]
+visible = false
+
+[node name="HUDLayer" type="CanvasLayer" parent="UI" unique_id=1387564780]
+visible = false
+
+[node name="GameplayHUD" type="Control" parent="UI/HUDLayer" unique_id=303330394]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Controls" parent="UI/HUDLayer" unique_id=539838444 instance=ExtResource("10_v0ilk")]
+[node name="ChatInput" parent="UI/HUDLayer" unique_id=1460735912 instance=ExtResource("15_chat")]
+
+
+[node name="PopupBoxLayer" type="CanvasLayer" parent="UI" unique_id=842617699]
+layer = 2
+script = ExtResource("12_r831r")
+
+[node name="Control" type="Control" parent="UI/PopupBoxLayer" unique_id=1181656941]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/PopupBoxLayer/Control" unique_id=1040101741]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1375
+anchor_top = 0.28333333
+anchor_right = 0.8625
+anchor_bottom = 0.71666664
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("12_lkm43")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="UI/PopupBoxLayer/Control" unique_id=1172986217]
+custom_maximum_size = Vector2(200, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.184375
+anchor_top = 0.35555556
+anchor_right = 0.809375
+anchor_bottom = 0.6333333
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("13_r831r")
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="UI/PopupBoxLayer/Control" unique_id=170145355]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.790625
+anchor_top = 0.33333334
+anchor_right = 0.8375
+anchor_bottom = 0.42222223
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("13_r831r")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_k3kj3")
+text = "X"
+metadata/_edit_use_anchors_ = true
+
+[node name="CharacterSelectLayer" type="CanvasLayer" parent="UI" unique_id=1230192181]
+visible = false
+
+[node name="CharacterSelect" parent="UI/CharacterSelectLayer" unique_id=561730231 node_paths=PackedStringArray("ui") instance=ExtResource("14_r831r")]
+ui = NodePath("../..")

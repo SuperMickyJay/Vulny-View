@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://dggcu4kelncmd"]
+
+[ext_resource type="Script" uid="uid://bdb1o3alge7bw" path="res://levels/Interactable.gd" id="1_a75ld"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wvhbo"]
+size = Vector2(16, 16)
+
+[node name="Interactable" type="StaticBody2D" unique_id=823974415]
+script = ExtResource("1_a75ld")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=226152647]
+position = Vector2(8, 8)
+scale = Vector2(0.75, 0.75)
+shape = SubResource("RectangleShape2D_wvhbo")

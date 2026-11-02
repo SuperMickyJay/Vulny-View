@@ -1,0 +1,200 @@
+[gd_scene format=3 uid="uid://bw17t2stesgll"]
+
+[ext_resource type="Script" uid="uid://iuh6f7xlcb2c" path="res://ui/controls/controls.gd" id="0_ctrls"]
+[ext_resource type="Texture2D" uid="uid://b7a48jdudakmc" path="res://assets/controls/Arrow.png" id="1_4cla1"]
+[ext_resource type="Texture2D" uid="uid://c3k06hk52ojlk" path="res://assets/controls/A.png" id="2_wnppa"]
+[ext_resource type="Texture2D" uid="uid://ch72jjo4fhfv2" path="res://assets/emotes/heart.png" id="3_256hm"]
+[ext_resource type="Texture2D" uid="uid://cw63y1uh123as" path="res://assets/controls/B.png" id="3_d3c44"]
+[ext_resource type="Texture2D" uid="uid://dmqay8b6vs2xy" path="res://assets/emotes/emote_container.png" id="3_i73s6"]
+[ext_resource type="Texture2D" uid="uid://d247phbausipe" path="res://assets/controls/Menu.png" id="4_d3c44"]
+[ext_resource type="Texture2D" uid="uid://bkrn38tfl2pv1" path="res://assets/emotes/smile.png" id="4_i73s6"]
+[ext_resource type="Texture2D" uid="uid://bndmxg677q4e2" path="res://assets/emotes/sad.png" id="6_egwlp"]
+[ext_resource type="Texture2D" uid="uid://c7wcubp7x4xi0" path="res://assets/emotes/yippie.png" id="8_xdk2d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_action"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ga3a7"]
+size = Vector2(18, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hnlbi"]
+size = Vector2(18, 18)
+
+[node name="Controls" type="Control" unique_id=539838444]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("0_ctrls")
+
+[node name="Up" type="Sprite2D" parent="." unique_id=1852632963]
+modulate = Color(1, 1, 1, 0.39215687)
+position = Vector2(65, 95)
+rotation = 1.5707964
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_4cla1")
+centered = false
+
+[node name="Down" type="Sprite2D" parent="." unique_id=2024455754]
+modulate = Color(1, 1, 1, 0.39215687)
+position = Vector2(41, 171)
+rotation = -1.5707964
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_4cla1")
+centered = false
+
+[node name="Left" type="Sprite2D" parent="." unique_id=1838605760]
+modulate = Color(1, 1, 1, 0.39215687)
+position = Vector2(15, 121)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_4cla1")
+centered = false
+
+[node name="Right" type="Sprite2D" parent="." unique_id=1731834567]
+modulate = Color(1, 1, 1, 0.39215687)
+position = Vector2(91, 145)
+rotation = 3.1415927
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_4cla1")
+centered = false
+
+[node name="A" type="TouchScreenButton" parent="." unique_id=245737474]
+modulate = Color(1, 1, 1, 0.39215687)
+position = Vector2(276, 119)
+scale = Vector2(1.75, 1.75)
+texture_normal = ExtResource("2_wnppa")
+texture_pressed = ExtResource("2_wnppa")
+shape = SubResource("RectangleShape2D_action")
+shape_visible = false
+action = "interact"
+
+[node name="EmoteOneBackground" type="NinePatchRect" parent="." unique_id=1929333598]
+modulate = Color(1, 1, 1, 0.39215687)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -24.0
+offset_top = 40.0
+offset_right = -4.0
+offset_bottom = 60.0
+grow_horizontal = 0
+texture = ExtResource("3_i73s6")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="EmoteOne" type="TouchScreenButton" parent="." unique_id=867225396]
+modulate = Color(1, 1, 1, 0.39215687)
+position = Vector2(301, 45)
+scale = Vector2(1.1111112, 1.1111112)
+texture_normal = ExtResource("3_256hm")
+texture_pressed = ExtResource("3_256hm")
+shape = SubResource("RectangleShape2D_ga3a7")
+shape_visible = false
+action = "emote_one"
+
+[node name="EmoteTwoBackground" type="NinePatchRect" parent="." unique_id=36791775]
+modulate = Color(1, 1, 1, 0.39215687)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -24.0
+offset_top = 63.0
+offset_right = -4.0
+offset_bottom = 83.0
+grow_horizontal = 0
+texture = ExtResource("3_i73s6")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="EmoteTwo" type="TouchScreenButton" parent="." unique_id=287726732]
+modulate = Color(1, 1, 1, 0.39215687)
+position = Vector2(301, 68)
+scale = Vector2(1.1111112, 1.1111112)
+texture_normal = ExtResource("4_i73s6")
+texture_pressed = ExtResource("4_i73s6")
+shape = SubResource("RectangleShape2D_hnlbi")
+shape_visible = false
+action = "emote_two"
+
+[node name="EmoteThreeBackground" type="NinePatchRect" parent="." unique_id=1146178844]
+modulate = Color(1, 1, 1, 0.39215687)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -24.0
+offset_top = 86.0
+offset_right = -4.0
+offset_bottom = 106.0
+grow_horizontal = 0
+texture = ExtResource("3_i73s6")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="EmoteThree" type="TouchScreenButton" parent="." unique_id=1084662533]
+modulate = Color(1, 1, 1, 0.39215687)
+position = Vector2(301, 91)
+scale = Vector2(1.1111112, 1.1111112)
+texture_normal = ExtResource("6_egwlp")
+texture_pressed = ExtResource("6_egwlp")
+shape = SubResource("RectangleShape2D_hnlbi")
+shape_visible = false
+action = "emote_three"
+
+[node name="EmoteFourBackground" type="NinePatchRect" parent="." unique_id=1577570735]
+modulate = Color(1, 1, 1, 0.39215687)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -49.0
+offset_top = 40.0
+offset_right = -29.0
+offset_bottom = 60.0
+grow_horizontal = 0
+texture = ExtResource("3_i73s6")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="EmoteFour" type="TouchScreenButton" parent="." unique_id=60401875]
+modulate = Color(1, 1, 1, 0.39215687)
+position = Vector2(276, 45)
+scale = Vector2(1.1111112, 1.1111112)
+texture_normal = ExtResource("8_xdk2d")
+texture_pressed = ExtResource("8_xdk2d")
+shape = SubResource("RectangleShape2D_ga3a7")
+shape_visible = false
+action = "emote_four"
+
+[node name="B" type="TouchScreenButton" parent="." unique_id=386009026]
+modulate = Color(1, 1, 1, 0.39215687)
+position = Vector2(244, 135)
+scale = Vector2(1.75, 1.75)
+texture_normal = ExtResource("3_d3c44")
+texture_pressed = ExtResource("3_d3c44")
+shape = SubResource("RectangleShape2D_action")
+shape_visible = false
+action = "cancel"
+
+[node name="Menu" type="TouchScreenButton" parent="." unique_id=183737628]
+modulate = Color(1, 1, 1, 0.39215687)
+position = Vector2(279.00003, 7)
+scale = Vector2(1.75, 1.75)
+texture_normal = ExtResource("4_d3c44")
+texture_pressed = ExtResource("4_d3c44")
+shape = SubResource("RectangleShape2D_action")
+shape_visible = false
+action = "pause"

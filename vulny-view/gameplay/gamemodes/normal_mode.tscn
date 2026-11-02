@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bl8nd1bhj3v7c"]
+
+[ext_resource type="Script" uid="uid://caq553u67dgm2" path="res://gameplay/gamemodes/NormalMode.gd" id="1_j2gc4"]
+
+[node name="NormalMode" type="Node2D" unique_id=1058029978]
+script = ExtResource("1_j2gc4")
