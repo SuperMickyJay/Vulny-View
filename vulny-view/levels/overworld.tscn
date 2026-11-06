@@ -676,9 +676,9 @@ messages = Array[String](["Baby Lyloo"])
 position = Vector2(96, 80)
 messages = Array[String](["Baby Lyloo"])
 
-[node name="MackAndAbhi" parent="Interactables" unique_id=823974415 instance=ExtResource("5_mdm5b")]
+[node name="MacNCheese" parent="Interactables" unique_id=823974415 instance=ExtResource("5_mdm5b")]
 position = Vector2(208, 96)
-messages = Array[String](["Mack n Abhi"])
+messages = Array[String](["Mac n Cheese"])
 
 [node name="Bin" parent="Interactables" unique_id=2041027113 instance=ExtResource("5_mdm5b")]
 position = Vector2(96, 1792)
