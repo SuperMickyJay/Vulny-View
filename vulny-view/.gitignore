@@ -4,10 +4,7 @@
 
 # Exported builds - produced by Godot's export presets, copied to devices / the EC2
 # server by hand (scp), never committed.
-*.apk
-*.aab
-*.x86_64
-*.pck
+/build/
 
 # Real online server address - copy config/server.example.cfg to create it.
 /config/server.cfg

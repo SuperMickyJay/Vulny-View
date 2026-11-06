@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dftutt0vwpve7" path="res://gameplay/entities/states/PlayerRoamState.gd" id="7_q8cj8"]
 [ext_resource type="Script" uid="uid://cdcxcjgj22e2k" path="res://gameplay/entities/states/PlayerMessageState.gd" id="8_t0s68"]
 [ext_resource type="PackedScene" uid="uid://d4rugwv0b442" path="res://ui/emotes/emote_container.tscn" id="9_5wrnk"]
+[ext_resource type="AudioStream" uid="uid://cq3h1xqd17a7c" path="res://assets/music and sounds/lumora_studios-pixel-jump-319167.mp3" id="11_j1iak"]
 [ext_resource type="PackedScene" path="res://ui/chat/chat_bubble.tscn" id="20_chat"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1xqlb"]
@@ -44,7 +45,6 @@ shape = SubResource("RectangleShape2D_1")
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1453449097]
 position = Vector2(8, 8)
-position_smoothing_speed = 8.0
 
 [node name="Input" type="Node" parent="." unique_id=282470048]
 script = ExtResource("2_8nm4y")
@@ -62,7 +62,8 @@ simulate_only_on_authority = true
 position = Vector2(8, 1)
 scale = Vector2(0.9, 0.9)
 sprite_frames = ExtResource("4_gr4fj")
-animation = &"idle_down"
+animation = &"yippie"
+frame_progress = 0.5332865
 script = ExtResource("5_q3neq")
 character_input = NodePath("../Input")
 character_movement = NodePath("../Movement")
@@ -98,3 +99,7 @@ offset_right = -10.0
 offset_bottom = -16.0
 
 [node name="ChatBubble" parent="EmoteAnchor" unique_id=1220458731 instance=ExtResource("20_chat")]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1566053301]
+stream = ExtResource("11_j1iak")
+bus = &"SFX"

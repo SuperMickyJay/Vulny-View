@@ -92,6 +92,8 @@ func show_options_menu() -> void:
 
 func open_character_select() -> void:
 	ui.show_character_select()
+	if not character_select.multiplayer_available:
+		_on_solo_requested()
 
 # Loads THIS peer's world/level. Every peer does this before any player is spawned, so
 # the MultiplayerSpawner/Players paths exist when the server replicates players to it —
@@ -222,6 +224,10 @@ func _on_enter_game_pressed() -> void:
 # --- Leaving -----------------------------------------------------------------
 
 func return_to_menu() -> void:
+	if GameManager._session and options_menu.visible:
+		ui.hide_options_menu()
+		return
+		
 	print("Returning to menu")
 	get_tree().paused = false
 

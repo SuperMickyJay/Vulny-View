@@ -12,6 +12,9 @@ func _ready() -> void:
 	play_button.pressed.connect(_on_play_button_pressed)
 	options_button.pressed.connect(_on_options_button_pressed)
 	quit_button.pressed.connect(_on_quit_button_pressed)
+	
+	# Don't need quit button if on browser
+	quit_button.visible = not OS.has_feature("web")
 
 func open() -> void:
 	show()

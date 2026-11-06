@@ -26,7 +26,8 @@ class_name CharacterMovement
 const INTERP_RATE := 20.0
 # Beyond this the copy hard-snaps instead of easing: spawn, area-transition
 # teleport, first sync, or a hard client misprediction.
-const SNAP_DISTANCE := 32.0   # 2 tiles
+const SNAP_DISTANCE := 32.0   # 2 tile
+const WALK_SPEED := 60.0
 
 signal animation_event_handler(animation_type: String)
 
@@ -136,9 +137,9 @@ func start_walking() -> void:
 		
 func walk(delta: float) -> void:
 	if is_walking:
-		character.position = character.position.move_toward(target_position, delta * Modules.GRID_SIZE * 4)
+		character.position = character.position.move_toward(target_position, delta * WALK_SPEED)
 		
-		if character.position.distance_to(target_position) < 1.0:
+		if character.position.is_equal_approx(target_position):
 			stop_walking()
 	else:
 		emit_signal("animation_event_handler", "idle")

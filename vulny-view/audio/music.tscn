@@ -6,4 +6,5 @@
 process_mode = 3
 stream = ExtResource("1_xnye0")
 autoplay = true
+bus = &"Music"
 parameters/looping = true

@@ -7,6 +7,7 @@ const YIPPIE_ANIMATION := &"yippie"
 @export var character_movement: CharacterMovement
 
 @onready var sprite: AnimatedSprite2D = $"."
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $"../AudioStreamPlayer2D"
 
 var character_animation: CharacterAnimations.character_animations
 
@@ -57,7 +58,12 @@ func _tick_yippie(delta: float) -> void:
 # Only the sprite moves: the character's position stays on the grid.
 func _update_yippie_bounce() -> void:
 	var hopping := animation == YIPPIE_ANIMATION and frame % 2 == 1
-	position.y = _rest_y - 1.0 if hopping else _rest_y
+	if hopping:
+		position.y = _rest_y - 1.0 
+		if audio_stream_player_2d:
+			audio_stream_player_2d.play()
+	else:
+		position.y = _rest_y
 
 func _apply_state_animation() -> void:
 	var direction: Vector2 = character_movement.sync_facing

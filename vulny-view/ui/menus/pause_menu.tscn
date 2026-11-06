@@ -35,12 +35,23 @@ layout_mode = 2
 [node name="ResumeButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=696923539]
 layout_mode = 2
 focus_neighbor_top = NodePath("../QuitButton")
+focus_neighbor_bottom = NodePath("../OptionsButton")
 theme_override_fonts/font = ExtResource("2_51icm")
 theme_override_font_sizes/font_size = 16
 text = "Resume"
 
+[node name="OptionsButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=499787709]
+layout_mode = 2
+focus_neighbor_top = NodePath("../ResumeButton")
+focus_neighbor_bottom = NodePath("../QuitButton")
+theme_override_fonts/font = ExtResource("2_51icm")
+theme_override_font_sizes/font_size = 16
+text = "Options
+"
+
 [node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=631182505]
 layout_mode = 2
+focus_neighbor_top = NodePath("../OptionsButton")
 focus_neighbor_bottom = NodePath("../ResumeButton")
 theme_override_fonts/font = ExtResource("2_51icm")
 theme_override_font_sizes/font_size = 16

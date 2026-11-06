@@ -7,6 +7,7 @@ class_name NPC
 @onready var npc_input: Node = $Input
 @onready var character_movement: CharacterMovement = $Movement
 @onready var state_machine: StateMachine = $StateMachine
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 @export var sprite_frames: SpriteFrames:
 	set(value):
@@ -58,6 +59,9 @@ func play_message(direction: Vector2) -> void:
 	_talking_locally = true
 	state_machine.change_state("Message")
 	MessageManager.play_text(npc_input_config.messages)
+	
+	if audio_stream_player_2d.stream:
+		audio_stream_player_2d.play()
 
 # --- Networked conversation hold ---------------------------------------------
 # Dialogue itself is local, but the NPC is server-simulated, so a remote talker must
