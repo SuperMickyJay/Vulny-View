@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://pstt1fhme4wo" path="res://gameplay/entities/CharacterAnimation.gd" id="5_aj5u8"]
 [ext_resource type="Script" uid="uid://c1cu2km8ox1y" path="res://gameplay/utilities/StateMachine.gd" id="7_vhg1w"]
 [ext_resource type="Script" uid="uid://bmld7gts4q52x" path="res://gameplay/entities/states/NPCRoamState.gd" id="8_uxbwv"]
+[ext_resource type="AudioStream" uid="uid://jta7ydciypd8" path="res://assets/music and sounds/stu9-cute-cat-352656.mp3" id="9_5frml"]
 [ext_resource type="Script" uid="uid://342ebsfsnlbo" path="res://gameplay/entities/states/NPCMessageState.gd" id="9_jb36s"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4kq5h"]
@@ -69,3 +70,7 @@ state_machine = NodePath("..")
 script = ExtResource("9_jb36s")
 state_owner = NodePath("../..")
 state_machine = NodePath("..")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=407420411]
+stream = ExtResource("9_5frml")
+bus = &"SFX"

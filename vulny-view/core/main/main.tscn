@@ -51,6 +51,7 @@ script = ExtResource("5_v0ilk")
 visible = false
 
 [node name="OptionsMenu" parent="UI/MenuLayer" unique_id=1347816606 instance=ExtResource("7_lkm43")]
+process_mode = 3
 visible = false
 
 [node name="PauseMenu" parent="UI/MenuLayer" unique_id=294681583 instance=ExtResource("8_r831r")]
@@ -69,8 +70,8 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Controls" parent="UI/HUDLayer" unique_id=539838444 instance=ExtResource("10_v0ilk")]
-[node name="ChatInput" parent="UI/HUDLayer" unique_id=1460735912 instance=ExtResource("15_chat")]
 
+[node name="ChatInput" parent="UI/HUDLayer" unique_id=1460735912 instance=ExtResource("15_chat")]
 
 [node name="PopupBoxLayer" type="CanvasLayer" parent="UI" unique_id=842617699]
 layer = 2

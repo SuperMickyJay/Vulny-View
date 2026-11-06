@@ -5,7 +5,10 @@ const SETTINGS_FILE_PATH = "user://settings.ini"
 # Every setting the game reads, with its default. Initializer / OptionsMenu access these
 # keys directly, so each one must always exist — add new settings here.
 const DEFAULTS := {
-	"audio": {"master_volume": 1.0},
+	"audio": {"master_volume": 1.0,
+		"music_volume": 1.0,
+		"sfx_volume": 1.0
+	},
 	"display": {"fullscreen": true},
 }
 

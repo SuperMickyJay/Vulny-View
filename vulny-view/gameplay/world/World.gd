@@ -40,10 +40,6 @@ func transition_to_area(player: Player, spawn_tag := "default") -> void:
 	# and replicate back; only routing changes here, the fade stays on this screen.
 	var peer_id := str(player.name).to_int()
 
-	# Snap-follow the local camera so it doesn't smoothly pan across the map when the
-	# replicated teleport arrives; the screen is faded to black while this happens.
-	player.camera.position_smoothing_enabled = false
-
 	if multiplayer.multiplayer_peer == null or multiplayer.is_server():
 		# Solo, or the host's own player: apply the move directly.
 		request_move_to_spawn(peer_id, spawn_tag)
@@ -69,9 +65,6 @@ func transition_to_area(player: Player, spawn_tag := "default") -> void:
 		# Face the way the spawn dictates on THIS client, so the owning player's own
 		# (event-driven) idle animation points the right way once the fade lifts.
 		_apply_spawn_facing(player, spawn)
-
-	player.camera.reset_smoothing()
-	player.camera.position_smoothing_enabled = true
 
 @rpc("any_peer", "reliable")
 func request_move_to_spawn(peer_id: int, spawn_tag: String) -> void:

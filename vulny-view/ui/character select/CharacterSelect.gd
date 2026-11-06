@@ -45,6 +45,9 @@ var _is_solo: bool = false
 var _is_host: bool = false
 var _is_drop_in: bool = false   # client that joined while a match is already running
 
+# Multiplayer only available on mobile
+var multiplayer_available: bool = not OS.has_feature("web")
+
 func _ready() -> void:
 	back_button.pressed.connect(_on_back_button_pressed)
 	for button in character_buttons:
@@ -168,10 +171,10 @@ func exit_lobby() -> void:
 
 	character_row.hide()
 	solo_button.show()
-	host_button.show()
-	online_button.show()
-	join_button.show()
-	ip_field.show()
+	host_button.visible = multiplayer_available
+	online_button.visible = multiplayer_available
+	join_button.visible = multiplayer_available
+	ip_field.visible = multiplayer_available
 	start_button.hide()
 	status_label.hide()
 	label.text = "Choose Game Option"

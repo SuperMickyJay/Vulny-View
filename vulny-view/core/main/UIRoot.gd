@@ -44,6 +44,10 @@ func hide_popup() -> void:
 func show_options_menu() -> void:
 	hide_all()
 	options_menu.open()
+	
+func hide_options_menu() -> void:
+	options_menu.hide()
+	pause_menu.open()
 
 func show_game_hud() -> void:
 	hide_all()
@@ -66,7 +70,11 @@ func connect_session(session_ref: Session) -> void:
 	session = session_ref
 	session.paused_changed.connect(_on_paused_changed)
 	pause_menu.resume_requested.connect(_on_resume_requested)
+	pause_menu.options_requested.connect(_on_options_requested)
 	pause_menu.quit_to_menu_requested.connect(_on_quit_to_menu_requested)
+
+func _on_options_requested() -> void:
+	show_options_menu()
 
 func _on_paused_changed(is_paused: bool) -> void:
 	if is_paused:

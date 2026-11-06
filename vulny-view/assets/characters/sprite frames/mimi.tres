@@ -249,5 +249,5 @@ animations = [{
 }],
 "loop": 1,
 "name": &"yippie",
-"speed": 5.0
+"speed": 3.0
 }]
