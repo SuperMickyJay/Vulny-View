@@ -11,7 +11,8 @@ as well as bug fixing, cleanup and documentation.
 
 ## Overview
 
-A top-down, grid-based pixel-art game for Android, built with **Godot 4.7** and **GDScript**.
+A top-down, grid-based pixel-art game for Android (with a single-player web version), built
+with **Godot 4.7** and **GDScript**.
 Pick a character, explore a small town and its houses, chat with friends and talk to the
 local cats. You can play solo, host a game on your Wi-Fi, or join a dedicated server online.
 
@@ -40,7 +41,10 @@ local cats. You can play solo, host a game on your Wi-Fi, or join a dedicated se
 - **Emotes and chat:** four emotes (including a yippie dance) and short overhead chat bubbles that every player sees.
 - **Touch controls built for phones:** a virtual-joystick D-pad and buttons that stay pinned
   to the screen edges on any aspect ratio. Keyboard controls work too.
-- **Options:** volume and fullscreen, saved between sessions.
+- **Sound effects** for doors, talking to the cats and the yippie dance.
+- **Options:** master, music and sound-effect volume plus fullscreen, saved between sessions.
+  Open them from the main menu or from the pause menu during a game.
+- **Web version:** a single-player build that runs in a browser.
 
 ## How the multiplayer works
 
@@ -74,7 +78,7 @@ Networking uses Godot's high-level multiplayer API over ENet (UDP port 8080).
 ## Documentation
 
 - [`vulny-view/README.md`](vulny-view/README.md): playing guide, multiplayer setup,
-  deploying the dedicated server to Linux / AWS EC2, and building for Android.
+  deploying the dedicated server to Linux / AWS EC2, and building for Android and the web.
 - [`CLAUDE.md`](CLAUDE.md): a detailed architecture guide to the codebase.
 
 ## Credits

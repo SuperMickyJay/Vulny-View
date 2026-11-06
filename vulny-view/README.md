@@ -1,7 +1,7 @@
 # Vulny View
 
 A small top-down, grid-based movement game (Pokemon-style) built with **Godot 4.7**
-and **GDScript**, targeting **Android**. You pick a character, walk one tile at
+and **GDScript**, targeting **Android**, with a single-player **web** build. You pick a character, walk one tile at
 a time around a town, a camera follows you, and you can face NPCs / objects and press the
 action button to read dialogue. It supports single-player and **multiplayer** (host/join on
 the same network, or a dedicated server), with emotes and overhead chat bubbles.
@@ -35,13 +35,18 @@ Face an NPC or an object and press **Interact** to talk; press Interact/Cancel a
 advance the dialogue. It closes after the last line, and you can't move while it is open.
 
 Press **1**, **2**, **3** or **4** (or the on-screen emote buttons) to pop an emote — a heart,
-a smile, a sad face or a yippie — above your character. Yippie also plays a dance on characters
-that have the animation (currently Mimi). In multiplayer everyone sees it: the emote
+a smile, a sad face or a yippie — above your character. Yippie also makes your character do a little
+hopping dance, with a jump sound that other players hear if you're on their screen. In
+multiplayer everyone sees it: the emote
 is sent to the server and shown on every player's screen, then fades on its own after a moment.
 
 Press **T** (or the on-screen **Chat** button) to type a short message (up to 60 characters).
 It opens at the top of the screen so a phone keyboard can't cover it; **Enter** / **Send**
 shows it in a speech bubble over your character for everyone, and **Escape** / **X** cancels.
+
+**Options** (volume for master, music and sound effects, plus fullscreen) open from the main
+menu, or from the pause menu (**Escape** / **Menu**) during a game. Back from there returns you to
+the pause menu. Settings are saved between sessions.
 
 ## Playing: Solo, Host, or Join
 
@@ -94,8 +99,8 @@ godot --headless --path . -- --server
 self-contained binary). Install the Linux x86_64 export templates, then export and run:
 
 ```
-godot --headless --path . --export-release "Linux Server" ./vulny-view.x86_64
-# copy vulny-view.x86_64 to the server, then:
+godot --headless --path . --export-release "Linux Server" build/server/vulny-view.x86_64
+# copy build/server/vulny-view.x86_64 to the server, then:
 chmod +x vulny-view.x86_64
 ./vulny-view.x86_64 --headless -- --server
 ```
@@ -131,7 +136,8 @@ ui/         menus (Main / Options / Pause / popup), the dialogue message box, em
 data/       configs/ — settings persistence (user://settings.ini)
 config/     server.example.cfg — template for the gitignored Play Online address file
 assets/     character sprite sheets, world tileset, fonts, UI art, music
-audio/      background music player
+audio/      background music player (default_bus_layout.tres defines the Master / Music / SFX buses)
+build/      export output, gitignored (build/Mobile/ APK, build/server/ Linux server, build/web/ web build)
 deploy/     vulny-view-server.service — systemd unit for the Linux dedicated server
 ```
 
@@ -170,9 +176,9 @@ godot --path .
 
 See `../CLAUDE.md` for the headless verification commands and a detailed architecture guide.
 
-## Building for Android
+## Building for Android and the web
 
-`export_presets.cfg` ships an **Android** preset as a starting point. Actual
+`export_presets.cfg` ships **Android**, **Linux Server** and **Web** presets. Actual
 builds need tooling that is **not** part of this repo:
 
 - **Android**: install the matching Godot **export templates**
@@ -180,7 +186,17 @@ builds need tooling that is **not** part of this repo:
   then set their paths in **Editor > Editor Settings > Export > Android**. Build via
   **Project > Export > Android**. Multiplayer needs the **INTERNET permission** enabled in the
   preset (`permissions/internet=true`) — without it hosting/joining fails with "Could not create
-  server". Toggling a permission requires a re-export + reinstall to take effect.
+  server". Toggling a permission requires a re-export + reinstall to take effect. The APK is
+  written to `build/Mobile/vulny-view.apk`.
+- **Web**: install the Godot web export templates and export with the **Web** preset into
+  `build/web/` (name the page `index.html` for itch.io). The web build is **single-player only**
+  (browsers can't use the game's networking), so Host / Join / Play Online are hidden, and so are
+  Quit and Full Screen. Serve it over HTTP (in the editor: **Remote Debug > Run in Browser**);
+  opening the HTML file from disk won't work.
+
+Exported builds are never committed: every preset writes into `build/`, which is gitignored.
+`build/` also contains a `.gdignore` file, which stops Godot from importing the exported files or
+packing them into the next export. Keep exports inside `build/`.
 
 Open **Project > Export** once so Godot fills in every remaining default for each preset.
 
