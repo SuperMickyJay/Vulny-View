@@ -62,7 +62,7 @@ simulate_only_on_authority = true
 position = Vector2(8, 1)
 scale = Vector2(0.9, 0.9)
 sprite_frames = ExtResource("4_538t7")
-animation = &"idle_down"
+animation = &"yippie"
 script = ExtResource("5_qh8vu")
 character_input = NodePath("../Input")
 character_movement = NodePath("../Movement")
@@ -100,3 +100,8 @@ offset_bottom = -16.0
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1997413876]
 stream = ExtResource("11_h551x")
+bus = &"SFX"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=17957924]
+position = Vector2(0, -2)
+rect = Rect2(1, -6, 14, 19)

@@ -8,6 +8,7 @@ const YIPPIE_ANIMATION := &"yippie"
 
 @onready var sprite: AnimatedSprite2D = $"."
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $"../AudioStreamPlayer2D"
+@onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = get_node_or_null("../VisibleOnScreenNotifier2D")
 
 var character_animation: CharacterAnimations.character_animations
 
@@ -60,7 +61,7 @@ func _update_yippie_bounce() -> void:
 	var hopping := animation == YIPPIE_ANIMATION and frame % 2 == 1
 	if hopping:
 		position.y = _rest_y - 1.0 
-		if audio_stream_player_2d:
+		if audio_stream_player_2d and (visible_on_screen_notifier_2d == null or visible_on_screen_notifier_2d.is_on_screen()):
 			audio_stream_player_2d.play()
 	else:
 		position.y = _rest_y

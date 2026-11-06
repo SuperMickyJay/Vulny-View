@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project
 
 A top-down, grid-based (Pokemon-style) 2D mobile game built with **Godot 4.7** and **GDScript**,
-targeting **Android**. Landscape orientation, Mobile renderer (`renderer/rendering_method="mobile"`),
+targeting **Android** (plus a single-player **Web** build). Landscape orientation, Mobile renderer (`renderer/rendering_method="mobile"`),
 base viewport **320×180** with integer scaling (`window/stretch/scale_mode="integer"`).
 
 Art is **authored assets**, not generated at runtime: pixel-art character sprite sheets
@@ -89,7 +89,9 @@ data/configs/  ConfigFileHandler (user://settings.ini persistence)
 config/     server.example.cfg (template); server.cfg (gitignored) holds the Play Online address
 deploy/     vulny-view-server.service (systemd unit for the Linux dedicated server)
 assets/     characters/ (sprite sheets + SpriteFrames), world/ (tileset), controls/, fonts/, message box/, music and sounds/
-audio/      music.tscn (global AudioStreamPlayer autoload)
+audio/      music.tscn (global AudioStreamPlayer autoload, on the Music bus)
+default_bus_layout.tres  audio buses: Master (0), Music (1), SFX (2)
+build/      export output (gitignored, has a .gdignore): build/Mobile/ (APK), build/server/ (Linux), build/web/ (Web)
 ```
 
 **Autoloads** (`project.godot`, in order): `Music` (a scene — `audio/music.tscn`), `ConfigFileHandler`,
@@ -120,7 +122,12 @@ the network; both peers resolve it back to a scene through the registry. Keep th
 
 **Grid movement is physics-free stepping, not `move_and_slide`.** Despite the `CharacterBody2D` base,
 `velocity` is never used. `CharacterMovement` (`gameplay/entities/CharacterMovement.gd`) steps between
-**16px** tile centres with `position.move_toward(target, delta * GRID_SIZE * 4)`. Collision is a
+**16px** tile centres with `position.move_toward(target, delta * WALK_SPEED)`, ending the step only
+when `is_equal_approx(target)` (never stop early). **`WALK_SPEED` = 60 px/s is deliberate:** with
+`snap_2d_transforms_to_pixel` and 60 physics ticks/s that is exactly 1 px per tick — any other speed
+(e.g. the old 64) moves unevenly and the whole screen stutters. Keep it a whole number of pixels per
+tick. For the same reason the player `Camera2D`s have **no position smoothing** (sub-pixel camera
+motion wobbled the player against the background) — don't re-enable it. Collision is a
 **`PhysicsPointQueryParameters2D` point query** at the target tile (`is_target_occupied`), plus a
 per-level **tile-reservation dictionary** (`Overworld.reserve_tile/release_tile`) so two movers can't
 claim the same tile. The tile size lives in one place, **`Modules.GRID_SIZE`** (16) — use it, don't
@@ -203,9 +210,14 @@ without the emote nodes wired won't error.
 
 **The yippie emote also dances.** `play_emote("yippie")` calls `CharacterAnimation.play_yippie(DISPLAY_TIME)` on
 the player's `Sprite`, on every peer. It plays the `yippie` animation and hops the **sprite** (not the body, so
-the grid position is untouched) up 1px on every odd frame via `frame_changed`. It ends after 2s; any walk or turn
+the grid position is untouched) up 1px on every odd frame via `frame_changed`. Each hop also plays the player's `AudioStreamPlayer2D`
+(jump sound; looked up as `$"../AudioStreamPlayer2D"`, silent if missing) — but **only if the dancer is on
+this peer's screen**: each character scene has a `VisibleOnScreenNotifier2D` (root child, `rect` covering the
+sprite) and `_update_yippie_bounce` plays only while it `is_on_screen()`, so the networked dance isn't heard
+by players elsewhere on the map. It's fetched with `get_node_or_null` because `CharacterAnimation` is shared
+with `npc.tscn`, which has no notifier (a missing notifier = always play). It ends after 2s; any walk or turn
 animation replaces it sooner. It is skipped mid-step and for a character whose `SpriteFrames` lacks `yippie`
-(currently only Mimi has it), and that character still gets the emote box.
+(all five currently have it, at 3 fps), and that character still gets the emote box.
 
 **Overhead chat bubbles follow the emote path.** Each player scene has `EmoteAnchor/ChatBubble`
 (`ui/chat/chat_bubble.tscn` + `ChatBubble.gd`). The HUD's `ChatInput` (`ui/chat/`, under
@@ -233,8 +245,21 @@ Multiplayer for why). `Session.start_session` only instantiates `world.tscn` + `
 via `Session.spawn_local_player()` (host/solo) or the `Session.request_spawn` RPC (clients).
 
 **Settings persistence.** `ConfigFileHandler` (`data/configs/`) reads/writes `user://settings.ini`
-(`audio` + `display` sections). `Initializer` applies them to the engine at boot (master-bus volume,
-window mode); `OptionsMenu` edits them live.
+(`audio` + `display` sections; `audio` holds `master_volume` / `music_volume` / `sfx_volume`, linear
+0–1). `Initializer` applies them at boot (the three bus volumes, window mode); `OptionsMenu` edits them
+live. Buses are set **by index** (`AudioServer.set_bus_volume_db(0|1|2, …)` = Master/Music/SFX, from
+`default_bus_layout.tres`), so keep that order. **Every sound player must set `bus = &"SFX"`** (or Music)
+or it ignores its slider (all five character scenes' `AudioStreamPlayer2D`s are on SFX).
+
+**Options is reachable in-game.** The pause menu has Resume / **Options** / Quit; `options_requested` →
+`UIRoot.show_options_menu()`. The `OptionsMenu` instance in `main.tscn` is `process_mode = Always` (so it
+works while a solo game is paused). Its Back button goes to `Main.return_to_menu()`, which returns to the
+**pause menu** (`UIRoot.hide_options_menu()`) when a session is running and Options is open, instead of
+quitting to the main menu.
+
+**Sounds.** Door `SceneTrigger`s (`AudioStreamPlayer`), NPCs (`AudioStreamPlayer2D` played in
+`NPC.play_message` when it has a `stream` — `npc.tscn` defaults to the cat meow; local-only like the
+dialogue) and the yippie hop (above). All on the SFX bus except as noted.
 
 ## Multiplayer (server-authoritative, ENet)
 
@@ -349,21 +374,23 @@ character, presses Enter Game), since there is no host to press Start. Hosting f
 
 ### Deploying the dedicated server (Linux / AWS EC2)
 
-`export_presets.cfg` has a **`Linux Server`** preset (`preset.1`): `platform="Linux"`,
+`export_presets.cfg` has three presets: `Android` (`preset.0`, → `build/Mobile/vulny-view.apk`),
+`Linux Server` (`preset.1`, → `build/server/vulny-view.x86_64`) and `Web` (`preset.2`, see Web build below). The **`Linux Server`** preset is: `platform="Linux"`,
 `binary_format/architecture="x86_64"`, `dedicated_server=true`, `binary_format/embed_pck=true` (a single
 self-contained `vulny-view.x86_64`, no separate `.pck`). It needs the Linux x86_64 export templates
 installed (Editor → Manage Export Templates); the target is an **AWS EC2 x86_64** instance (t2/t3/…). For
 a Graviton (arm64) instance, add an arm64 preset instead.
 
 ```bash
-# Export (from vulny-view/) — the preset's export_path is ./vulny-view.x86_64 (project root)
-godot --headless --path . --export-release "Linux Server" ./vulny-view.x86_64
+# Export (from vulny-view/) — the preset's export_path is build/server/vulny-view.x86_64
+godot --headless --path . --export-release "Linux Server" build/server/vulny-view.x86_64
 # On the instance
 chmod +x vulny-view.x86_64 && ./vulny-view.x86_64 --headless -- --server
 ```
 
-Exported builds (`*.apk`, `*.x86_64`, `*.pck`, …) are **gitignored, never committed** — the server binary
-is copied to the instance by hand with `scp` (e.g. `scp vulny-view.x86_64 <user>@<elastic-ip>:~/`).
+Exported builds are **never committed**: every preset writes under `vulny-view/build/`, which is
+gitignored. `build/` holds a `.gdignore`, so Godot never imports exported files or packs them into later exports (presets use `all_resources`) — keep it there, and export only into `build/`. The server binary is copied to the instance by hand with `scp`
+(e.g. `scp build/server/vulny-view.x86_64 <user>@<elastic-ip>:~/`).
 
 Run it under systemd for auto-restart / boot-start — a ready unit is at
 `deploy/vulny-view-server.service` (its header has the install steps). Two AWS gotchas: open **inbound
@@ -388,6 +415,16 @@ is still visible to anyone who unpacks the APK or watches traffic — it's publi
 the protection is the locked-down Security Group, not secrecy. Play across different networks needs the host
 reachable from outside (port-forwarding / a dedicated server on a public host / a VPN mesh); mobile-data
 hosting is blocked by carrier CGNAT.
+
+### Web build (single-player only)
+
+The `Web` preset builds a browser version. Browsers can't use ENet, so multiplayer is switched off
+whenever `OS.has_feature("web")`: `CharacterSelect.multiplayer_available` is false (Host / Join / Play
+Online / IP field hidden) and `Main.open_character_select` jumps straight to `_on_solo_requested()`;
+`MainMenu` hides Quit; `OptionsMenu` hides the Full Screen row and `Initializer` skips the window mode.
+Keep anything that needs a network peer behind `multiplayer_available`. The preset has thread support
+off (no special server headers, works on itch.io); its `export_path` is `build/web/Vulny View.html`, but
+itch.io needs `index.html`. It must be served over HTTP (not opened from disk).
 
 ### `Modules.is_authority(node)` — null-peer-safe authority check
 
