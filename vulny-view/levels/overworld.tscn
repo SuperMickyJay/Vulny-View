@@ -883,6 +883,7 @@ messages = Array[String](["Get ready with me"])
 [node name="SecretHairPile" parent="Interactables" unique_id=1911066119 instance=ExtResource("5_mdm5b")]
 position = Vector2(1056, 1120)
 messages = Array[String](["Lots of hairs"])
+walkable = true
 
 [node name="ChemEngPhoto" parent="Interactables" unique_id=365022459 instance=ExtResource("5_mdm5b")]
 position = Vector2(960, 1088)

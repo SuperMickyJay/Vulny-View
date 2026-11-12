@@ -114,6 +114,8 @@ func is_target_occupied(target_world_position: Vector2) -> bool:
 			if character is NPC:
 				return true
 			continue
+		elif collider is Interactable and collider.walkable:
+			continue
 		elif collider is TileMapLayer or collider is StaticBody2D:
 			# Solid world geometry: walls, boundaries, signs.
 			return true
